@@ -10,6 +10,9 @@ import { get404 } from './controllers/error.js';
 import User from './models/user.js';
 import csrf from 'csurf';
 import flash from 'connect-flash';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // ===== Routes ===========
 import adminRoutes from './routes/admin.js';
@@ -24,7 +27,7 @@ const __dirname = path.resolve();
 const MongoDBStore = MongoConnect(session);
 
 var store = new MongoDBStore({
-  uri: 'mongodb+srv://eshop_cart:eshop_cart@eshop-cart.t4y8oxf.mongodb.net/eshop?retryWrites=true&w=majority',
+  uri: process.env.MONGODB_URI,
   collection: 'sessions',
 });
 // Catch errors
@@ -40,7 +43,7 @@ app.use(cookieParser());
 // === Session middlware=======
 app.use(
   session({
-    secret: 'some long string for production',
+    secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     },
@@ -106,14 +109,11 @@ app.use(authRoutes);
 app.use(get404);
 
 mongoose
-  .connect(
-    'mongodb+srv://eshop_cart:eshop_cart@eshop-cart.t4y8oxf.mongodb.net/eshop?retryWrites=true&w=majority',
-    {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-    }
-  )
+  .connect(process.env.MONGODB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  })
   .then((result) => {
     app.listen(3000);
   })
