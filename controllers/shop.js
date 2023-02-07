@@ -56,6 +56,7 @@ export const getCart = (req, res, next) => {
     });
   }
 
+  console.log('get cart user: ', req.session.user.cart.items);
   req.user
     .populate('cart.items.productInfo')
     .execPopulate()
@@ -82,7 +83,18 @@ export const postCart = (req, res, next) => {
         return res.redirect('/cart');
       }
 
-      res.redirect('/login');
+      req.session.guestUser.push({
+        _id: product._id,
+        productInfo: {
+          title: product.title,
+          price: product.price,
+          description: product.description,
+          imageUrl: product.imageUrl,
+        },
+        quantity: 1,
+      });
+
+      res.redirect('/products');
     })
     .catch((error) => {
       console.log('post cart error: ', error);
@@ -133,6 +145,8 @@ export const postOrder = async (req, res, next) => {
       req.user.clearCart();
     })
     .then(() => {
+      console.log('user: ', req.user);
+      req.session.user.cart.items = [];
       res.redirect('/orders');
     })
     .catch((err) => console.log(err));

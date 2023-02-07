@@ -35,13 +35,24 @@ export const postLogin = (req, res, next) => {
           if (!passwordMatch) {
             return res.redirect('/login');
           } else {
-            console.log('iam here user: ', user);
+            // console.log('iam here user: ', user);
             req.session.isLoggedIn = true;
             // req.session.guestUser = false;
+            if (req.session.guestUser.length > 0) {
+              const newItems = req.session.guestUser.map((item) => {
+                return { productInfo: item._id, quantity: item.quantity };
+              });
+
+              user.cart.items = newItems;
+              user.save();
+              // console.log('new items: ', newItems);
+              // console.log('new user: ', user);
+            }
             req.session.user = user;
+            req.session.guestUser = [];
             req.session.save((error) => {
               // if (error) return next(error);
-              console.log('Error insode login save sessio: ', error);
+              console.log('Error inside login save session: ', error);
               return res.redirect('/');
             });
           }

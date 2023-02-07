@@ -68,16 +68,19 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
   if (!req.session.user) {
+    req.session.user = null;
+    req.session.isLoggedIn = false;
     if (!req.session.guestUser) {
       req.session.guestUser = [];
     }
     return next();
   }
 
-  console.log('middleware user: ', req.session.user._id);
+  // console.log('middleware user: ', req.session.user._id);
 
   User.findById(req.session.user._id)
     .then((user) => {
+      // console.log('app middleware user: ', user);
       req.user = user;
       next();
     })
@@ -90,6 +93,9 @@ app.use((req, res, next) => {
     ? req.session.isLoggedIn
     : false;
   res.locals.csrfToken = req.csrfToken();
+  res.locals.cartItems = req.session.user
+    ? req.session.user.cart.items
+    : req.session.guestUser;
   next();
 });
 
