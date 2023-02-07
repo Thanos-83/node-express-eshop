@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply flex flex-col justify-between min-h-screen;
+}
+
+main {
+  @apply flex-1;
+}
+
+main > div,
+header > div.header_container,
+footer > div {
+  @apply w-full max-w-[96rem] mx-auto px-8;
+}
+
+.main-header__nav,
+.main-header__item-list {
+  @apply flex;
+}
+
+/* .mobile-nav {
+  @apply absolute top-0 bottom-0 -left-full p-4 bg-slate-400;
+} */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+/* .hidden {
+  display: none;
+} */
+
+.main-header__nav,
+.main-header__item-list {
+  display: flex;
+}
+
+.mobile-nav {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: -100%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+  padding: 1rem;
+}
+
+nav a {
+  @apply text-gray-600 hover:text-indigo-500 text-lg font-semibold transition duration-100;
+}
+
+nav a.active {
+  @apply text-indigo-700;
+}
