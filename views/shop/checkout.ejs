@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <div class="content_container flex items-start mt-8">
+            <div class="w-3/5">
+                <h1>Address Info and the rest info go here...!</h1>
+            </div>
+            <div class="w-2/5">
+                <form action="/create-order" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                    <button  type="submit" class="w-full inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3" >
+                        Order Now!
+                    </button>
+                </form>
+            </div>
+            </div>
+        </main>
+<%- include('../includes/end.ejs') %>

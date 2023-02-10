@@ -82,7 +82,44 @@ export const postCart = (req, res, next) => {
         req.user.addToCart(product);
         return res.redirect('/cart');
       }
+      if (req.session.guestUser.length > 0) {
+        const productIndex = req.session.guestUser.findIndex((guestProduct) => {
+          // console.log(guestProduct._id.toString());
+          // console.log(product._id);
+          return guestProduct._id.toString() === product._id.toString();
+        });
+        let updatedCartItems = [...req.session.guestUser];
+        // console.log('updated cart items one: ', updatedCartItems);
+        console.log('product index: ', productIndex);
 
+        if (productIndex >= 0) {
+          updatedCartItems[productIndex].quantity =
+            updatedCartItems[productIndex].quantity + 1;
+
+          console.log('updated cart items two: ', updatedCartItems);
+          req.session.guestUser = updatedCartItems;
+          req.session.save();
+          return res.redirect('/products');
+        } else {
+          updatedCartItems.push({
+            _id: product._id,
+            productInfo: {
+              _id: product._id,
+              title: product.title,
+              price: product.price,
+              description: product.description,
+              imageUrl: product.imageUrl,
+            },
+            quantity: 1,
+          });
+          req.session.guestUser = updatedCartItems;
+          req.session.save();
+
+          return res.redirect('/products');
+        }
+      }
+
+      // console.log('iam here...');
       req.session.guestUser.push({
         _id: product._id,
         productInfo: {
@@ -93,6 +130,7 @@ export const postCart = (req, res, next) => {
         },
         quantity: 1,
       });
+      req.session.save();
 
       res.redirect('/products');
     })
@@ -106,12 +144,17 @@ export const postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   console.log('productID to delete: ', prodId);
 
-  req.user
-    .deleteItemFromCart(prodId)
-    .then((result) => {
-      res.redirect('/cart');
-    })
-    .catch((err) => console.log(err));
+  if (!req.user) {
+    console.log('iam in the delete route...');
+    const newCartItems = req.session.guestUser.filter(
+      (item) => item._id.toString() !== prodId
+    );
+
+    req.session.guestUser = newCartItems;
+    req.session.save();
+    // console.log('new cart items: ', newCartItems);
+    return res.redirect('/cart');
+  }
 };
 
 export const postOrder = async (req, res, next) => {

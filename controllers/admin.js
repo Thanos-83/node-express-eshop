@@ -6,7 +6,8 @@ export const getAddProduct = (req, res, next) => {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
     editing: false,
-    isAuthenticated: req.session.isLoggedIn,
+    // isAuthenticated: req.session.isLoggedIn,
+    errorMsg: '',
   });
 };
 
@@ -54,7 +55,8 @@ export const getEditProduct = (req, res, next) => {
         path: '/admin/edit-product',
         editing: editMode,
         product: product,
-        isAuthenticated: req.session.isLoggedIn,
+        errorMsg: '',
+        // isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => console.log(err));

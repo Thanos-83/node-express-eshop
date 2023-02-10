@@ -46,6 +46,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+      secure: process.env.NODE_ENVIRONMENT === 'production' ? true : false,
     },
     store: store,
     resave: false,
@@ -97,7 +98,7 @@ app.use((req, res, next) => {
     : false;
   res.locals.csrfToken = req.csrfToken();
   res.locals.cartItems = req.session.user
-    ? req.session.user.cart.items
+    ? req.user.cart.items
     : req.session.guestUser;
   next();
 });

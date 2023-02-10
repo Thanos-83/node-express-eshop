@@ -93,12 +93,15 @@
                                     <div class="space-y-1">
                                     <div class="flex justify-between text-gray-500 gap-4">
                                         <span>Subtotal</span>
-                                        <span>$129.99</span>
+                                        <span>$ <%= products.map(product=>product.productInfo.price * product.quantity).reduce((prev,current)=> prev+current  , 0).toFixed(2) %></span>
                                     </div>
-
-                                    <div class="flex justify-between text-gray-500 gap-4">
+                                     <div class="flex justify-between text-gray-500 gap-4">
                                         <span>Shipping</span>
-                                        <span>$4.99</span>
+                                        <span> free </span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-500 gap-4">
+                                        <span>Vat (24%)</span>
+                                        <span>$ <%= (products.map(product=>product.productInfo.price * product.quantity).reduce((prev,current)=> prev+current  , 0) - products.map(product=>product.productInfo.price * product.quantity).reduce((prev,current)=> prev+current  , 0) / 1.24).toFixed(2) %> </span>
                                     </div>
                                     </div>
 
@@ -107,16 +110,17 @@
                                         <span class="text-lg font-bold">Total</span>
 
                                         <span class="flex flex-col items-end">
-                                        <span class="text-lg font-bold">$134.98 USD</span>
+                                        <span class="text-lg font-bold">$<%= products.map(product=>product.productInfo.price * product.quantity).reduce((prev,current)=> prev+current  , 0).toFixed(2) %> USD</span>
                                         <span class="text-gray-500 text-sm">including VAT</span>
                                         </span>
                                     </div>
                                     </div>
                                 </div>
-                                <form action="/create-order" method="POST">
-                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                                    <button  type="submit" class="w-full inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3" >Order Now!</button>
-                                </form>
+                                <div>
+                                    <a  href="/checkout" class="w-full inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3" >
+                                        Procced to Checkout
+                                    </a>
+                                </divaction=>
                             </div> 
                         </div>
                     <!-- totals - end -->

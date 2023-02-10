@@ -20,10 +20,15 @@ export const getLoginPage = (req, res, next) => {
 
 export const postLogin = (req, res, next) => {
   const { email, password } = req.body;
+
+  if ((!email, !password)) {
+    req.flash('error', 'Invalid email and password');
+    return res.redirect('/login');
+  }
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        req.flash('error', 'Invalid email or password!');
+        req.flash('error', 'Invalid email');
 
         return res.redirect('/login');
       }
@@ -32,6 +37,7 @@ export const postLogin = (req, res, next) => {
         .then((passwordMatch) => {
           // console.log('Password match: ', passwordMatch);
           if (!passwordMatch) {
+            req.flash('error', 'Invalid password');
             return res.redirect('/login');
           } else {
             // console.log('iam here user: ', user);
@@ -52,7 +58,7 @@ export const postLogin = (req, res, next) => {
             req.session.save((error) => {
               // if (error) return next(error);
               console.log('Error inside login save session: ', error);
-              return res.redirect('/');
+              return res.redirect('/cart');
             });
           }
         })

@@ -33,4 +33,22 @@ router.post('/create-order', isAuth, postOrder);
 
 router.get('/orders', isAuth, getOrders);
 
+router.get('/checkout', (req, res, next) => {
+  res.render('shop/checkout', {
+    path: '/checkout',
+    pageTitle: 'Checkout',
+    // products: req.session.guestUser,
+    // isAuthenticated: req.session.isLoggedIn,
+  });
+});
+
+router.get('/display-products', (req, res, next) => {
+  res.render('shop/display-products', {
+    path: '/display-products',
+    pageTitle: 'Display Products',
+    // products: req.session.guestUser,
+    // isAuthenticated: req.session.isLoggedIn,
+  });
+});
+
 export default router;

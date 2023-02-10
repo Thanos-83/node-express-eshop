@@ -24,3 +24,17 @@ resetPasswordBtn.addEventListener('click', () => {
   console.log('input value:', resetPasswordInput.value);
   alert('button clicked');
 });
+
+// Drop down navigation menu
+
+const dropDownButton = document.querySelector('#menu-button');
+const body = document.querySelector('body');
+const dropDownMenu = document.querySelector("div[role='menu']");
+
+dropDownButton.addEventListener('click', () => {
+  alert('menu clicked....');
+});
+
+body.addEventListener('click', () => {
+  alert('menu clicked....');
+});
