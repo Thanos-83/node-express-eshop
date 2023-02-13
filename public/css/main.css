@@ -1885,18 +1885,10 @@ footer > div {
   display: flex;
 }
 
-/* .mobile-nav {
-  @apply absolute top-0 bottom-0 -left-full p-4 bg-slate-400;
-} */
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
-
-/* .hidden {
-  display: none;
-} */
 
 .main-header__nav,
 .main-header__item-list {

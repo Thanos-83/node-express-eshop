@@ -9,9 +9,13 @@ const filtersBackdrop = document.querySelector('.filters_backdrop');
 const filtersOpenButton = document.querySelector('#filtersOpen_button');
 const filtersCloseButton = document.querySelector('#filtersClose_button');
 
-dropDownButton.addEventListener('click', () => {
+function handleDropDown() {
   dropDownMenu.classList.toggle('active');
-});
+}
+
+if (dropDownButton) {
+  dropDownButton.addEventListener('click', handleDropDown);
+}
 
 shortMenuButton.addEventListener('click', () => {
   shortProductsMenu.classList.toggle('active');

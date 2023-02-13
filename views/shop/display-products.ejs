@@ -9,30 +9,8 @@
     <div class="content_container">
       
 
-       <div class=" z-40 lg:hidden" role="dialog" aria-modal="true">
-      <!--
-        Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-
-        Entering: "transition-opacity ease-linear duration-300"
-          From: "opacity-0"
-          To: "opacity-100"
-        Leaving: "transition-opacity ease-linear duration-300"
-          From: "opacity-100"
-          To: "opacity-0"
-      -->
+    <div class=" z-40 lg:hidden" role="dialog" aria-modal="true">
       <div class="filters_backdrop"></div>
-
-      
-        <!--
-          Off-canvas menu, show/hide based on off-canvas menu state.
-
-          Entering: "transition ease-in-out duration-300 transform"
-            From: "translate-x-full"
-            To: "translate-x-0"
-          Leaving: "transition ease-in-out duration-300 transform"
-            From: "translate-x-0"
-            To: "translate-x-full"
-        -->
         <div class="filters">
           <div class="flex items-center justify-between px-4">
             <h2 class="text-lg font-medium text-gray-900">Filters</h2>
@@ -272,16 +250,7 @@
               </button>
             </div>
 
-            <!--
-              Dropdown menu, show/hide based on menu state.
-
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
+      
             <div id="short-menu" class="shortProducts_menu " role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
               <div class="py-1" role="none">
                 <!--
@@ -324,7 +293,7 @@
 
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
           <!-- Filters -->
-          <form class="hidden lg:block">
+          <form class="filters_form hidden lg:block">
             <h3 class="sr-only">Categories</h3>
             <ul role="list" class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
               <li>
