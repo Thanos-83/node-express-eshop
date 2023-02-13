@@ -1,36 +1,15 @@
 
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
     <%- include('../includes/navigation.ejs') %>
 
-    <main>
-    <div class="content_container relative">
+  <main class="flex">
+    <div class="content_container">
+      
 
-<!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
-<div class="bg-white">
-  <div>
-    <!--
-      Mobile filter dialog
-
-      Off-canvas filters for mobile, show/hide based on off-canvas filters state.
-    -->
-    <div class=" z-40 lg:hidden" role="dialog" aria-modal="true">
+       <div class=" z-40 lg:hidden" role="dialog" aria-modal="true">
       <!--
         Off-canvas menu backdrop, show/hide based on off-canvas menu state.
 
@@ -41,9 +20,9 @@
           From: "opacity-100"
           To: "opacity-0"
       -->
-      <div class="fixed inset-0 bg-black bg-opacity-25"></div>
+      <div class="filters_backdrop"></div>
 
-      <div class="fixed inset-0 z-[999] flex">
+      
         <!--
           Off-canvas menu, show/hide based on off-canvas menu state.
 
@@ -54,10 +33,10 @@
             From: "translate-x-0"
             To: "translate-x-full"
         -->
-        <div class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+        <div class="filters">
           <div class="flex items-center justify-between px-4">
             <h2 class="text-lg font-medium text-gray-900">Filters</h2>
-            <button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
+            <button id="filtersClose_button" type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
               <span class="sr-only">Close menu</span>
               <!-- Heroicon name: outline/x-mark -->
               <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -270,17 +249,21 @@
             </div>
           </form>
         </div>
-      </div>
+      
     </div>
 
-    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-baseline justify-between border-b border-gray-200 pt-24 pb-6">
-        <h1 class="text-4xl font-bold tracking-tight text-gray-900">New Arrivals (needs Javascript to work properly. Also restructure the HTML)</h1>
 
+
+
+    <div class="mx-auto z-[1] relative">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pt-24 pb-6">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900">
+          New Arrivals 
+        </h1>
         <div class="flex items-center">
           <div class="relative inline-block text-left">
             <div>
-              <button type="button" class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900" id="menu-button" aria-expanded="false" aria-haspopup="true">
+              <button type="button" class="shortProducts_btn group" id="short-menu-button" aria-expanded="false" aria-haspopup="true">
                 Sort
                 <!-- Heroicon name: mini/chevron-down -->
                 <svg class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -299,7 +282,7 @@
                 From: "transform opacity-100 scale-100"
                 To: "transform opacity-0 scale-95"
             -->
-            <div class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            <div id="short-menu" class="shortProducts_menu " role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
               <div class="py-1" role="none">
                 <!--
                   Active: "bg-gray-100", Not Active: ""
@@ -326,7 +309,7 @@
               <path fill-rule="evenodd" d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zm0 9A2.25 2.25 0 0011 13.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5A2.25 2.25 0 0015.75 11h-2.5z" clip-rule="evenodd" />
             </svg>
           </button>
-          <button type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
+          <button id="filtersOpen_button" type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
             <span class="sr-only">Filters</span>
             <!-- Heroicon name: mini/funnel -->
             <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -546,15 +529,44 @@
 
           <!-- Product grid -->
           <div class="lg:col-span-3">
-            <!-- Replace with your content -->
-            <div class="h-96 rounded-lg border-4 border-dashed border-gray-200 lg:h-full"></div>
-            <!-- /End replace -->
+       
+               <% if (prods.length > 0) { %>
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-8 ">
+                                <% for (let product of prods) { %>
+                                    <!-- product - start -->
+                                    <div>
+                                        <a href="/products/<%= product._id %>" class="group h-80 block bg-gray-100 rounded-lg overflow-hidden relative mb-2 lg:mb-3">
+                                        <img src="<%= product.imageUrl %>" loading="lazy" alt="<%= product.title %>" class="w-full h-full object-contain object-center group-hover:scale-110 transition duration-200" />
+
+                                        <span class="bg-red-500 text-white text-sm tracking-wider uppercase rounded-br-lg absolute left-0 top-0 px-3 py-1.5">sale</span>
+                                        </a>
+
+                                        <div>
+                                        <a href="/products/<%= product._id %>" class="text-gray-500 hover:gray-800 lg:text-lg transition duration-100 mb-1"><%= product.title %></a>
+
+                                        <div class="flex items-end gap-2">
+                                            <span class="text-gray-800 lg:text-lg font-bold">$ <%= product.price %></span>
+                                            <span class="text-red-500 line-through mb-0.5">$30.00</span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                                        </div>
+                                        </div>
+                                    </div>
+                    <!-- product - end -->
+                                <% } %>
+                            </div>
+                        <% } else { %>
+                          <div>
+                            <h1>No Products Found!</h1>
+                          </div>
+                        <% } %>
+       
           </div>
         </div>
       </section>
-    </main>
-  </div>
-</div>
-</div>
-</main>
+    </div>
+
+    </div>
+  </main>
 <%- include('../includes/end.ejs') %>

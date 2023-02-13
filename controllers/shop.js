@@ -46,6 +46,20 @@ export const getIndex = (req, res, next) => {
     });
 };
 
+export const displayProducts = (req, res, next) => {
+  Product.find()
+    .then((products) => {
+      res.render('shop/display-products', {
+        prods: products,
+        pageTitle: 'display-products',
+        path: '/display-products',
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const getCart = (req, res, next) => {
   if (!req.user) {
     return res.render('shop/cart', {
@@ -99,7 +113,7 @@ export const postCart = (req, res, next) => {
           console.log('updated cart items two: ', updatedCartItems);
           req.session.guestUser = updatedCartItems;
           req.session.save();
-          return res.redirect('/products');
+          return res.redirect('/display-products');
         } else {
           updatedCartItems.push({
             _id: product._id,
@@ -115,7 +129,7 @@ export const postCart = (req, res, next) => {
           req.session.guestUser = updatedCartItems;
           req.session.save();
 
-          return res.redirect('/products');
+          return res.redirect('/display-products');
         }
       }
 
@@ -132,7 +146,7 @@ export const postCart = (req, res, next) => {
       });
       req.session.save();
 
-      res.redirect('/products');
+      res.redirect('/display-products');
     })
     .catch((error) => {
       console.log('post cart error: ', error);

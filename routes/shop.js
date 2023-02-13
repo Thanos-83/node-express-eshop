@@ -11,6 +11,7 @@ import {
   postCartDeleteProduct,
   postOrder,
   getOrders,
+  displayProducts,
 } from '../controllers/shop.js';
 
 import isAuth from '../middleware/authMiddleware.js';
@@ -42,13 +43,6 @@ router.get('/checkout', (req, res, next) => {
   });
 });
 
-router.get('/display-products', (req, res, next) => {
-  res.render('shop/display-products', {
-    path: '/display-products',
-    pageTitle: 'Display Products',
-    // products: req.session.guestUser,
-    // isAuthenticated: req.session.isLoggedIn,
-  });
-});
+router.get('/display-products', displayProducts);
 
 export default router;

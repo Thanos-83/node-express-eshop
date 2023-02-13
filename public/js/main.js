@@ -1,40 +1,35 @@
-const backdrop = document.querySelector('.backdrop');
-const sideDrawer = document.querySelector('.mobile-nav');
-const menuToggle = document.querySelector('#side-menu-toggle');
-
-function backdropClickHandler() {
-  backdrop.style.display = 'none';
-  sideDrawer.classList.remove('open');
-}
-
-function menuToggleClickHandler() {
-  backdrop.style.display = 'block';
-  sideDrawer.classList.add('open');
-}
-
-backdrop.addEventListener('click', backdropClickHandler);
-menuToggle.addEventListener('click', menuToggleClickHandler);
-
-const resetPasswordBtn = document.querySelector('#resetPasswordBtn');
-const resetPasswordInput = document.querySelector(
-  '.resetPasswordPage input#email '
-);
-
-resetPasswordBtn.addEventListener('click', () => {
-  console.log('input value:', resetPasswordInput.value);
-  alert('button clicked');
-});
-
-// Drop down navigation menu
-
 const dropDownButton = document.querySelector('#menu-button');
-const body = document.querySelector('body');
 const dropDownMenu = document.querySelector("div[role='menu']");
 
+const shortMenuButton = document.querySelector('#short-menu-button');
+const shortProductsMenu = document.querySelector('#short-menu');
+
+const filtersSidebar = document.querySelector('.filters');
+const filtersBackdrop = document.querySelector('.filters_backdrop');
+const filtersOpenButton = document.querySelector('#filtersOpen_button');
+const filtersCloseButton = document.querySelector('#filtersClose_button');
+
 dropDownButton.addEventListener('click', () => {
-  alert('menu clicked....');
+  dropDownMenu.classList.toggle('active');
 });
 
-body.addEventListener('click', () => {
-  alert('menu clicked....');
+shortMenuButton.addEventListener('click', () => {
+  shortProductsMenu.classList.toggle('active');
+});
+
+filtersOpenButton.addEventListener('click', () => {
+  filtersBackdrop.classList.add('active');
+  filtersSidebar.classList.add('active');
+  document.querySelector('body').classList.add('disable_scrolling');
+});
+
+filtersCloseButton.addEventListener('click', () => {
+  filtersBackdrop.classList.remove('active');
+  filtersSidebar.classList.remove('active');
+  document.querySelector('body').classList.remove('disable_scrolling');
+});
+
+filtersBackdrop.addEventListener('click', () => {
+  filtersBackdrop.classList.remove('active');
+  filtersSidebar.classList.remove('active');
 });

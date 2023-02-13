@@ -103,11 +103,13 @@ app.use((req, res, next) => {
   next();
 });
 
+//====== Routes ============
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
-
 app.use(get404);
+
+// =========================
 
 mongoose
   .connect(process.env.MONGODB_URI, {

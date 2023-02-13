@@ -52,16 +52,9 @@
           </li>
           <li>
             <a
-              href="/products"
-              class="<%= path === '/products' ? 'active' : '' %>"
-              >Products</a
-            >
-          </li>
-          <li>
-            <a
               href="/display-products"
               class="<%= path === '/display-products' ? 'active' : '' %>"
-              >Display Products Template</a
+              >Products</a
             >
           </li>
           <li>
@@ -93,27 +86,27 @@
             </a>
           </li>
 
-          <% if(isAuthenticated){ %>
-          <li class="main-header__item">
+          <!-- <% if(isAuthenticated){ %> -->
+          <!-- <li class="main-header__item">
             <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders"
               >Orders</a
             >
-          </li>
-          <li class="main-header__item">
+          </li> -->
+          <!-- <li class="main-header__item">
             <a
               class="<%= path === '/admin/add-product' ? 'active' : '' %>"
               href="/admin/add-product"
               >Add Product
             </a>
-          </li>
-          <li class="main-header__item">
+          </li> -->
+          <!-- <li class="main-header__item">
             <a
               class="<%= path === '/admin/products' ? 'active' : '' %>"
               href="/admin/products"
               >Admin Products
             </a>
-          </li>
-          <% } %>
+          </li> -->
+          <!-- <% } %> -->
         </ul>
       </nav>
       <!-- nav - end -->
@@ -134,7 +127,7 @@
         >
       </div>
       <% } %> <% if(isAuthenticated){ %>
-      <div class="inline-flex justify-end px-0">
+      <!-- <div class="inline-flex justify-end px-0">
         <form class="ml-auto" action="/logout" method="POST">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <button
@@ -144,7 +137,7 @@
             Logout
           </button>
         </form>
-      </div>
+      </div> -->
 
       <div class="relative inline-block text-left">
         <div>
@@ -184,7 +177,7 @@
             To: "transform opacity-0 scale-95"
         -->
         <div
-          class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="dropDown_menu"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -201,30 +194,40 @@
               >Account settings</a
             >
             <a
-              href="#"
-              class="text-gray-700 block px-4 py-2 text-sm"
+              href="/orders"
+              class="<%= path === '/orders' ? 'active' : '' %>"
               role="menuitem"
               tabindex="-1"
               id="menu-item-1"
-              >Support</a
+              >Orders</a
             >
             <a
-              href="#"
-              class="text-gray-700 block px-4 py-2 text-sm"
+              class="<%= path === '/admin/add-product' ? 'active' : '' %>"
+              href="/admin/add-product"
               role="menuitem"
               tabindex="-1"
               id="menu-item-2"
-              >License</a
             >
-            <form method="POST" action="#" role="none">
+              Add Product
+            </a>
+
+            <a
+              class="<%= path === '/admin/products' ? 'active' : '' %>"
+              href="/admin/products"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-3"
+            >
+              Edit Products
+            </a>
+
+            <form class="px-4 py-2" action="/logout" method="POST">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
               <button
                 type="submit"
-                class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-                role="menuitem"
-                tabindex="-1"
-                id="menu-item-3"
+                class="inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 py-2 w-full"
               >
-                Sign out
+                Logout
               </button>
             </form>
           </div>
