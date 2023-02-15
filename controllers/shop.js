@@ -169,6 +169,9 @@ export const postCartDeleteProduct = (req, res, next) => {
     // console.log('new cart items: ', newCartItems);
     return res.redirect('/cart');
   }
+
+  req.user.deleteItemFromCart(prodId);
+  return res.redirect('/cart');
 };
 
 export const postOrder = async (req, res, next) => {

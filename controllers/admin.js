@@ -2,10 +2,10 @@
 import Product from '../models/product.js';
 
 export const getAddProduct = (req, res, next) => {
-  if (req.session.csrfToken !== req.body._csrf) {
-    res.status(401).json({ message: 'unauthorized!' });
-    return;
-  }
+  // if (req.session.csrfToken !== req.body._csrf) {
+  //   res.status(401).json({ message: 'unauthorized!' });
+  //   return;
+  // }
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
@@ -46,10 +46,10 @@ export const postAddProduct = (req, res, next) => {
 };
 
 export const getEditProduct = (req, res, next) => {
-  if (req.session.csrfToken !== req.body._csrf) {
-    res.status(401).json({ message: 'unauthorized!' });
-    return;
-  }
+  // if (req.session.csrfToken !== req.body._csrf) {
+  //   res.status(401).json({ message: 'unauthorized!' });
+  //   return;
+  // }
   console.log('Edit Product: ', req.user);
 
   const editMode = req.query.edit;
@@ -102,10 +102,10 @@ export const postEditProduct = (req, res, next) => {
 };
 
 export const getProducts = (req, res, next) => {
-  if (req.session.csrfToken !== req.body._csrf) {
-    res.status(401).json({ message: 'unauthorized!' });
-    return;
-  }
+  // if (req.session.csrfToken !== req.body._csrf) {
+  //   res.status(401).json({ message: 'unauthorized!' });
+  //   return;
+  // }
   Product.find()
     .then((products) => {
       res.render('admin/products', {
