@@ -49,7 +49,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
       secure: process.env.NODE_ENVIRONMENT === 'production' ? true : false,
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'strict',
     },
     proxy: true,
     store: store,
@@ -77,7 +77,9 @@ app.use((req, res, next) => {
 const cryptoID = crypto.randomUUID();
 
 app.use((req, res, next) => {
-  req.session.csrfToken = cryptoID;
+  if (!req.session.csrfToken) {
+    req.session.csrfToken = cryptoID;
+  }
   if (!req.session.user) {
     req.session.user = null;
     req.session.isLoggedIn = false;
