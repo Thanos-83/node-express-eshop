@@ -12,7 +12,6 @@ import dotenv from 'dotenv';
 import User from './models/user.js';
 import crypto from 'crypto';
 
-// const csrfToken = csurf();
 dotenv.config();
 
 // ===== Routes ===========
@@ -39,6 +38,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
 // === Session middlware=======
 app.use(
@@ -53,8 +53,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
 
 app.use(flash());
 
