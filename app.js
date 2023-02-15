@@ -51,6 +51,7 @@ app.use(
       httpOnly: true,
       sameSite: 'none',
     },
+    proxy: true,
     store: store,
     resave: false,
     saveUninitialized: true,
