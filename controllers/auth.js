@@ -20,7 +20,11 @@ export const getLoginPage = (req, res, next) => {
 
 export const postLogin = (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log('csrfToken: ', req.body._csrf);
+  console.log(req.session.csrfToken !== req.body._csrf);
+  if (req.session.csrfToken !== req.body._csrf) {
+    return res.status(401).json({ message: 'unauthorized!' });
+  }
   if ((!email, !password)) {
     req.flash('error', 'Invalid email and password');
     return res.redirect('/login');
@@ -73,6 +77,12 @@ export const postLogin = (req, res, next) => {
 };
 
 export const postLogout = (req, res, next) => {
+  console.log(req.session.csrfToken !== req.body._csrf);
+
+  if (req.session.csrfToken !== req.body._csrf) {
+    return res.status(401).json({ message: 'unauthorized!' });
+  }
+
   req.session.isLoggedIn = false;
   req.session.user = null;
 
@@ -93,7 +103,9 @@ export const getSignupPage = (req, res, next) => {
 
 export const postSignup = (req, res, next) => {
   const { name, email, password, confirmPassword } = req.body;
-  // console.log(name, email, password);
+  if (req.session.csrfToken !== req.body._csrf) {
+    return res.status(401).json({ message: 'unauthorized!' });
+  }
   User.findOne({ email: email })
     .then((user) => {
       // console.log(user);
@@ -137,6 +149,9 @@ export const getResetPasswordPage = (req, res, next) => {
 };
 
 export const postResetPasswordPage = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    return res.status(401).json({ message: 'unauthorized!' });
+  }
   console.log(req.body.email);
   if (!req.body.email) {
     req.flash('error', 'Please ender a valid email!');
@@ -179,6 +194,9 @@ export const postResetPasswordPage = (req, res, next) => {
 };
 
 export const getNewPasswordPage = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    return res.status(401).json({ message: 'unauthorized!' });
+  }
   const token = req.params.token;
   console.log(token);
   User.findOne({
@@ -200,6 +218,9 @@ export const getNewPasswordPage = (req, res, next) => {
 };
 
 export const postNewPasswordPage = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    return res.status(401).json({ message: 'unauthorized!' });
+  }
   const { password, userToken, userId } = req.body;
   let resetUser;
   User.findOne({

@@ -7,11 +7,12 @@ import session from 'express-session';
 import parseurl from 'parseurl';
 import MongoConnect from 'connect-mongodb-session';
 import { get404 } from './controllers/error.js';
-import User from './models/user.js';
-import csrf from 'csurf';
 import flash from 'connect-flash';
 import dotenv from 'dotenv';
+import User from './models/user.js';
+import crypto from 'crypto';
 
+// const csrfToken = csurf();
 dotenv.config();
 
 // ===== Routes ===========
@@ -22,7 +23,6 @@ import authRoutes from './routes/auth.js';
 
 const app = express();
 
-const csrfProtection = csrf();
 const __dirname = path.resolve();
 const MongoDBStore = MongoConnect(session);
 
@@ -34,11 +34,11 @@ var store = new MongoDBStore({
 store.on('error', function (error) {
   console.log('MongoDB session errors: ', error);
 });
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
 
 // === Session middlware=======
 app.use(
@@ -54,7 +54,8 @@ app.use(
   })
 );
 
-app.use(csrfProtection);
+app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
+
 app.use(flash());
 
 // === A simple example using express-session to store page views for a user====
@@ -70,7 +71,11 @@ app.use((req, res, next) => {
   req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
   next();
 });
+
+const cryptoID = crypto.randomUUID();
+
 app.use((req, res, next) => {
+  req.session.csrfToken = cryptoID;
   if (!req.session.user) {
     req.session.user = null;
     req.session.isLoggedIn = false;
@@ -96,7 +101,8 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn
     ? req.session.isLoggedIn
     : false;
-  res.locals.csrfToken = req.csrfToken();
+  // res.locals.csrfToken = req.csrfToken();
+  res.locals.csrfToken = req.session.csrfToken;
   res.locals.cartItems = req.session.user
     ? req.user.cart.items
     : req.session.guestUser;

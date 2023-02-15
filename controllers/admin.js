@@ -2,6 +2,10 @@
 import Product from '../models/product.js';
 
 export const getAddProduct = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    res.status(401).json({ message: 'unauthorized!' });
+    return;
+  }
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
@@ -12,6 +16,10 @@ export const getAddProduct = (req, res, next) => {
 };
 
 export const postAddProduct = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    res.status(401).json({ message: 'unauthorized!' });
+    return;
+  }
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
@@ -38,6 +46,10 @@ export const postAddProduct = (req, res, next) => {
 };
 
 export const getEditProduct = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    res.status(401).json({ message: 'unauthorized!' });
+    return;
+  }
   console.log('Edit Product: ', req.user);
 
   const editMode = req.query.edit;
@@ -63,6 +75,10 @@ export const getEditProduct = (req, res, next) => {
 };
 
 export const postEditProduct = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    res.status(401).json({ message: 'unauthorized!' });
+    return;
+  }
   const prodId = req.body.productId;
   const updatedTitle = req.body.title;
   const updatedPrice = req.body.price;
@@ -86,6 +102,10 @@ export const postEditProduct = (req, res, next) => {
 };
 
 export const getProducts = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    res.status(401).json({ message: 'unauthorized!' });
+    return;
+  }
   Product.find()
     .then((products) => {
       res.render('admin/products', {
@@ -99,6 +119,10 @@ export const getProducts = (req, res, next) => {
 };
 
 export const postDeleteProduct = (req, res, next) => {
+  if (req.session.csrfToken !== req.body._csrf) {
+    res.status(401).json({ message: 'unauthorized!' });
+    return;
+  }
   const prodId = req.body.productId;
   Product.findByIdAndDelete(prodId)
     .then(() => {
