@@ -49,7 +49,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
       secure: process.env.NODE_ENVIRONMENT === 'production' ? true : false,
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'none',
     },
     store: store,
     resave: false,
