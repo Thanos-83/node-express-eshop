@@ -43,10 +43,13 @@ app.use(cookieParser());
 // === Session middlware=======
 app.use(
   session({
+    name: 'sessionID',
     secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
       secure: process.env.NODE_ENVIRONMENT === 'production' ? true : false,
+      httpOnly: true,
+      sameSite: 'strict',
     },
     store: store,
     resave: false,
